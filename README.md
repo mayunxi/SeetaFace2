@@ -86,7 +86,7 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
     - GNU Make 工具
     - GCC 或者 Clang 编译器
   + For windows
-    - [MSVC](http://msdn.microsoft.com/zh-cn/vstudio) 或者 MinGW. 
+    - [MSVC](http://msdn.microsoft.com/zh-cn/vstudio) 或者 MinGW.
   - [CMake](http://www.cmake.org/)
 + 依赖库
   - [可选] [OpneCV](http://opencv.org/) 仅编译例子时需要
@@ -107,15 +107,18 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
   - 依赖
     + opencv。仅编译例子时需要
 
-        sudo apt-get install libopencv-dev 
+        sudo apt-get install libopencv-dev
 
-  - 编译
+  - x86编译
 
         cd SeetaFace2
         mkdir build
         cd build
         cmake .. -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=`pwd`/install -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLE=OFF # 如果有 OpneCV，则设置为 ON
-        cmake --build . --config Release 
+        cmake --build . --config Release
+
+  - arm下编译
+        cmake .. -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=`pwd`/install -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLE=ON -DSEETA_USE_SSE2=OFF -DANDROID_ARM_NEON=ON
 
   - 安装
 
@@ -123,7 +126,7 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
 
   - 运行例子
     + 把生成库的目录加入到变量 LD_LIBRARY_PATH 中
- 
+
             export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/bin
 
     + 拷贝模型文件到程序执行目录的 model 目录下
@@ -164,9 +167,9 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
                   -DCMAKE_INSTALL_PREFIX=install \
                   -DCMAKE_BUILD_TYPE=Release \
                   -DBUILD_EXAMPLE=OFF # 如果有 OpneCV，则设置为 ON
-            #-G: 设置产生器。注意产生器要与你的MSVC工具配套 
-            cmake --build . --config Release 
-            
+            #-G: 设置产生器。注意产生器要与你的MSVC工具配套
+            cmake --build . --config Release
+
 
       - 安装
 
@@ -235,7 +238,7 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
             cmake --build . --config MinSizeRel --target install/strip
 
     - msys2 或 cygwin
-    
+
             cd SeetaFace2
             mkdir build
             cd build
@@ -268,11 +271,11 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
     + ANDROID_PLATFORM: 如需平台名称和对应 Android 系统映像的完整列表，请参阅 [Android NDK 原生 API](https://developer.android.google.cn/ndk/guides/stable_apis.html)
     + ANDROID_ARM_MODE
     + ANDROID_ARM_NEON
-    + ANDROID_STL: 指定 CMake 应使用的 STL。默认情况下，CMake 使用 c++_static。 
+    + ANDROID_STL: 指定 CMake 应使用的 STL。默认情况下，CMake 使用 c++_static。
       - c++_shared: 使用 libc++ 动态库
       - c++_static: 使用 libc++ 静态库
       - none: 没有 C++ 库支持
-      - system: 用系统的 STL 
+      - system: 用系统的 STL
 
 ### 2.3.4 IOS 平台编译说明
 > 以实体机为例
@@ -312,7 +315,7 @@ SeetaFace2 是面向于人脸识别商业落地的里程碑版本，其中人脸
         |-- FaceRecognizer（人脸特征提取和比对模块）  
         |-- SeetaNet（前向计算框架模块）  
 
-    
+
 ## 4. 模型下载
 - 人脸检测模块 FaceDetector 模型下载链接：  
 MD5     ：E88669E5F1301CA56162DE8AEF1FD5D5  
@@ -334,7 +337,7 @@ MD5     ：2D637AAD8B1B7AE62154A877EC291C99
 百度网盘：https://pan.baidu.com/s/1y2vh_BHtYftR24V4xwAVWg 提取码：pim2  
 Dropbox : https://www.dropbox.com/s/6aslqcokpljha5j/fr_2_10.dat?dl=0
 
-## 5. 示例 
+## 5. 示例
 ### 5.1 本项目自带示例
 
 `example/search/example.cpp` 示例展示了一套简单且完整的人脸识别的流程，包括：  
@@ -363,4 +366,3 @@ Dropbox : https://www.dropbox.com/s/6aslqcokpljha5j/fr_2_10.dat?dl=0
 ## 8. 开源协议
 
 `SeetaFace2` 依照 [BSD 2-Clause license](LICENSE) 开源.
-

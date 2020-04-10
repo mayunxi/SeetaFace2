@@ -25,12 +25,12 @@ int main()
     seeta::QualityAssessor QA;
 
     // recognization threshold
-    float threshold = 0.7f;
+    float threshold = 0.6f;
 
     //set face detector's min face size
-    engine.FD.set( seeta::FaceDetector::PROPERTY_MIN_FACE_SIZE, 80 );
+    engine.FD.set( seeta::FaceDetector::PROPERTY_MIN_FACE_SIZE, 40 );
 
-    std::vector<std::string> GalleryImageFilename = { "1.jpg" };
+    std::vector<std::string> GalleryImageFilename = { "mayunxi.jpg","zhaoguosheng.bmp","wangbaoguo.bmp","liweihai.bmp" };
     std::vector<int64_t> GalleryIndex( GalleryImageFilename.size() );
     for( size_t i = 0; i < GalleryImageFilename.size(); ++i )
     {
@@ -89,7 +89,9 @@ int main()
             if (score == 0) {
                 name = "ignored";
             } else {
+
                 auto queried = engine.QueryTop( image, points.data(), 1, &index, &similarity );
+                printf("similarity:%f\n",similarity);
                 // no face queried from database
                 if (queried < 1) continue;
                 // similarity greater than threshold, means recognized
